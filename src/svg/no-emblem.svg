@@ -1,0 +1,22 @@
+<svg width="346" height="350" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <defs>
+  <filter id="svg_4_blur">
+   <feGaussianBlur stdDeviation="0.1" in="SourceGraphic"/>
+  </filter>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="352" width="348" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <rect stroke="null" id="svg_3" height="345.999984" width="345.999987" y="0.75" x="-0.25" stroke-opacity="null" stroke-width="1.5" fill="#e5e5e5"/>
+  <text filter="url(#svg_4_blur)" stroke="null" transform="matrix(3.4171514676078125,0,0,3.490673962354102,-979.6986746738571,-578.9933962702341) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_4" y="207.461307" x="317.408359" stroke-opacity="null" stroke-width="0" fill="#999999">NO</text>
+  <path id="svg_5" d="m50,2.953125" opacity="0.5" stroke-opacity="null" stroke-width="0" stroke="null" fill="#999999"/>
+  <text filter="url(#svg_4_blur)" stroke="null" transform="matrix(3.098356542318337,0,0,3.165019932795495,-897.1917036863679,-487.2265223482425) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_6" y="228.871132" x="294.298552" stroke-opacity="null" stroke-width="0" fill="#999999">EMBLEM</text>
+ </g>
+</svg>

@@ -1,0 +1,8 @@
+# dependencies
+/node_modules
+
+#testing push notification
+push.js
+
+#zip
+gilabola-app.zip
