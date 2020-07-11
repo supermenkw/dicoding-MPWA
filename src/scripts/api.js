@@ -1,20 +1,8 @@
-import {
-    competitionTable,
-    standingTable,
-    teamInfoTable,
-    squadCollapseable
-} from "./template/wrapper";
-import {
-    competitionData,
-    standingData,
-    emblemData,
-    squadData,
-    favData
-} from "./template/data";
-
-import {
-    getAllFav,
-} from "./db.js";
+import { getAllFav } from "./db.js";
+import {competitionResponse} from "./template/getCompetition";
+import { competitionByIdResponse } from "./template/getCompetitionById";
+import { teamByIdResponse } from "./template/getTeamById";
+import { allFavTeamResponse }  from "./template/getAllFavTeam";
 
 const API_TOKEN = "94a9a17bdec24c7c9d8ce9324d9a4ffc";
 const base_url = "https://api.football-data.org/v2/";
@@ -30,7 +18,7 @@ const fetchData = (url) => {
 
 const status = (response) => {
     if (response.status !== 200) {
-        console.log("Error : " + response.status);
+        console.log(`Error : ${response.status}`);
 
         return Promise.reject(new Error(response.statusText));
     } else {
@@ -51,16 +39,9 @@ const getCompetitions = () => {
         caches
             .match(`${base_url}competitions?plan=TIER_ONE`)
             .then((response) => {
-
                 if (response) {
                     response.json().then((data) => {
-                        let dataHTML = "";
-                        let tableHTML = "";
-                        data.competitions.forEach((competition, index) => {
-                            dataHTML += competitionData(competition, index);
-                        });
-                        tableHTML += competitionTable(dataHTML);
-                        document.getElementById("competitions", ).innerHTML = tableHTML;
+                        competitionResponse(data);
                     });
                 }
             });
@@ -73,13 +54,7 @@ const getCompetitions = () => {
         .then(status)
         .then(json)
         .then((data) => {
-            let dataHTML = "";
-            let tableHTML = "";
-            data.competitions.forEach((competition, index) => {
-                dataHTML += competitionData(competition, index);
-            });
-            tableHTML += competitionTable(dataHTML);
-            document.getElementById("competitions").innerHTML = tableHTML;
+            competitionResponse(data);
         })
         .catch(error);
 };
@@ -95,17 +70,7 @@ const getCompetitionById = () => {
                 .then((response) => {
                     if (response) {
                         response.json().then((data) => {
-                            let dataHTML = "";
-                            let tableHTML = "";
-                            data.standings.forEach((standing) => {
-                                standing.table.forEach((team) => {
-                                    dataHTML += standingData(team);
-                                })
-                                tableHTML = standingTable(dataHTML);
-                            });
-
-                            document.getElementById("body-content").innerHTML = tableHTML;
-
+                            competitionByIdResponse(data);
                         });
                     }
                 })
@@ -114,16 +79,7 @@ const getCompetitionById = () => {
             .then(status)
             .then(json)
             .then((data) => {
-                let dataHTML = "";
-                let tableHTML = "";
-                data.standings.forEach((standing) => {
-                    standing.table.forEach((team) => {
-                        dataHTML += standingData(team);
-                    })
-                    tableHTML = standingTable(dataHTML);
-                });
-
-                document.getElementById("body-content").innerHTML = tableHTML;
+                competitionByIdResponse(data)
             })
     })
 }
@@ -139,24 +95,7 @@ const getTeamById = () => {
                 .then((response) => {
                     if (response) {
                         response.json().then((data) => {
-
-                            let emblem = "";
-                            let infoTable = "";
-                            let dataHTML = "";
-                            let dataTable = "";
-
-                            data.squad.forEach((player) => {
-                                dataHTML += squadData(player);
-                            })
-
-                            emblem += emblemData(data);
-                            infoTable += teamInfoTable(data);
-                            dataTable += squadCollapseable(dataHTML);
-
-                            document.getElementById("emblem-team").innerHTML = emblem;
-                            document.getElementById("information").innerHTML = infoTable;
-                            document.getElementById("squad").innerHTML = dataTable;
-
+                            teamByIdResponse(data)
                             resolve(data);
                         }).then(() => {
                             const list = document.querySelectorAll(".collapsible");
@@ -175,23 +114,7 @@ const getTeamById = () => {
             .then(status)
             .then(json)
             .then((data) => {
-                let emblem = "";
-                let infoTable = "";
-                let dataHTML = "";
-                let dataTable = "";
-
-                data.squad.forEach((player) => {
-                    dataHTML += squadData(player);
-                })
-
-                emblem += emblemData(data);
-                infoTable += teamInfoTable(data);
-                dataTable += squadCollapseable(dataHTML);
-
-                document.getElementById("emblem-team").innerHTML = emblem;
-                document.getElementById("information").innerHTML = infoTable;
-                document.getElementById("squad").innerHTML = dataTable;
-
+                teamByIdResponse(data)
                 resolve(data);
             }).then(() => {
                 const list = document.querySelectorAll(".collapsible");
@@ -208,14 +131,8 @@ const getTeamById = () => {
 
 const getAllFavTeam = () => {
 
-
     getAllFav().then((fav_teams) => {
-        let dataHTML = "";
-        fav_teams.forEach((data) => {
-    
-            dataHTML += favData(data);
-        })
-        document.getElementById("fav-teams").innerHTML = dataHTML;  
+        allFavTeamResponse(fav_teams);
     })
 }
 

@@ -29,9 +29,6 @@ module.exports = {
                     {
                         loader: "css-loader",
                     },
-                    {
-                        loader: "sass-loader"
-                    }
                 ],
             },
             {
@@ -74,8 +71,8 @@ module.exports = {
         new copyWebpackPlugin ({
             patterns: [
                 {
-                    from: "src/svg/*.svg",
-                    to: "svg/[name].[ext]"
+                    from: "src/svg",
+                    to: "svg"
                 },
                 {
                     from: "src/favicon.ico",
@@ -93,28 +90,18 @@ module.exports = {
                     from: "src/components",
                     to: "components"
                 },
+                {
+                    from: "src/icon",
+                    to: "icon"
+                },
+                {
+                    from: "src/manifest.json",
+                    to: "manifest.json"
+                }
             ]
         }),
         new ServiceWorkerWebpackPlugin({
             entry: path.join(__dirname, 'src/sw.js'),
-        }),
-        new WebpackPwaManifest({
-            name: 'Gila Bola App',
-            short_name: 'Gilabola',
-            description: 'Informasi lengkap tentang sepak bola!',
-            start_url: "index.html",
-            background_color: '#0000',
-            gcm_sender_id: "381248738485",
-            icons: [
-                    {
-                        src: path.resolve('src/icon-192.png'),
-                        size: '192x192' // you can also use the specifications pattern
-                    },
-                    {
-                        src: path.resolve('src/icon-512.png'),
-                        size: '512x512' // you can also use the specifications pattern
-                    },
-                    ]
         }),
         new CleanWebpackPlugin(),
     ],

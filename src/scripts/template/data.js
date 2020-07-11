@@ -23,7 +23,7 @@ const standingData = (team) => {
     <tr>
         <td class="center-align">${team.position}</td>
         <td>
-        <img src="${toHttps(team.team.crestUrl)}" alt="emblem club ${team.team.name}" class="show-on-medium-and-up hide-on-small-and-down responsive-img" style="width:30px;height:30px; display:block; margin:auto;">
+        <img src="${toHttps(team.team.crestUrl)}" alt="emblem club ${team.team.name}" class="show-on-medium-and-up hide-on-small-and-down responsive-img" style="width:30px;height:30px; display:block; margin:auto;" loading="lazy">
         </td>
         <td>
             <a href="../team.html?id=${team.team.id}">

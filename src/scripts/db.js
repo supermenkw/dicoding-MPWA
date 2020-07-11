@@ -2,8 +2,6 @@ import idb from "./idb";
 
 const databaseName = "Gilabola-app";
 const storeName = "fav_teams";
-const unfav = document.querySelector("#unfav");
-const fav = document.querySelector("#fav");
 
 const dbPromised = idb.open(databaseName, 1, function (upgradeDb) {
     let favTeams = upgradeDb.createObjectStore(storeName, {
@@ -18,8 +16,8 @@ function checkData(id) {
     return new Promise(function (resolve, reject) {
         dbPromised
             .then(function (db) {
-                var tx = db.transaction(storeName, "readonly");
-                var store = tx.objectStore(storeName);
+                const tx = db.transaction(storeName, "readonly");
+                const store = tx.objectStore(storeName);
                 return store.get(id);
             })
             .then(function (data) {
@@ -36,7 +34,7 @@ const insertTeam = (data) => {
     dbPromised.then((db) => {
         const tx = db.transaction(storeName, "readwrite");
         const store = tx.objectStore(storeName);
-        store.add(data);
+        store.put(data);
 
         return tx.complete;
     }).then((data) => {
@@ -65,14 +63,14 @@ const deleteTeam = (data) => {
 const getAllFav = () => {
     return new Promise((resolve, reject) => {
         dbPromised.then((db) => {
-                var tx = db.transaction(storeName, "readonly");
-                var store = tx.objectStore(storeName);
+                const tx = db.transaction(storeName, "readonly");
+                const store = tx.objectStore(storeName);
                 return store.getAll();
             })
             .then(function (fav_teams) {
                 resolve(fav_teams);
             });
-    })
+    });
 }
 
 export {
