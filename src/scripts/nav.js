@@ -18,7 +18,7 @@ if (page === "") {
 
 
 const loadNav = () => {
-    var xhttp = new XMLHttpRequest();
+    const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
             if (this.status != 200) return;
@@ -35,7 +35,7 @@ const loadNav = () => {
                 .forEach(function (elm) {
                     elm.addEventListener("click", function (event) {
                         // Tutup sidenav
-                        var sidenav = document.querySelector(".sidenav");
+                        const sidenav = document.querySelector(".sidenav");
                         M.Sidenav.getInstance(sidenav).close();
 
                         const page = event.target
@@ -52,7 +52,7 @@ const loadNav = () => {
 
 const loadPage = (page) => {
     // fetch('pages/' + page + '.html')
-    var xhttp = new XMLHttpRequest();
+    const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
             const content = document.querySelector("#body-content");
