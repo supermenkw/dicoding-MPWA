@@ -1,9 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const copyWebpackPlugin = require("copy-webpack-plugin");
-const WebpackPwaManifest = require("webpack-pwa-manifest");
-const ServiceWorkerWebpackPlugin = require("serviceworker-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { InjectManifest } = require("workbox-webpack-plugin");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 
 module.exports = {
     entry: {
@@ -97,54 +96,21 @@ module.exports = {
                 {
                     from: "src/manifest.json",
                     to: "manifest.json"
-                }
+                },
+/*                 {
+                    from: "src/workbox-sw.js",
+                    to: "workbox-sw.js"
+                },
+                {
+                    from: "src/sw.js",
+                    to: "sw.js"
+                } */
             ]
         }),
-        new ServiceWorkerWebpackPlugin({
-            entry: path.join(__dirname, 'src/sw.js'),
+        new InjectManifest({
+            swSrc: "./src/sw.js",
+            swDest: "sw.js"
         }),
-/*         new WebpackPwaManifest({
-            name: 'Gila Bola App',
-            short_name: 'Gilabola',
-            description: 'Informasi lengkap tentang sepak bola!',
-            start_url: "index.html",
-            background_color: '#0000',
-            gcm_sender_id: "381248738485",
-            icons: [
-                    {
-                        src: path.resolve('src/icon-72.png'),
-                        size: '72x72'
-                    },
-                    {
-                        src: path.resolve('src/icon-96.png'),
-                        size: '96x96'
-                    },
-                    {
-                        src: path.resolve('src/icon-128.png'),
-                        size: '128x128'
-                    },
-                    {
-                        src: path.resolve('src/icon-144.png'),
-                        size: '144x144'
-                    },
-                    {
-                        src: path.resolve('src/icon-152.png'),
-                        size: '152x152'
-                    },
-                    {
-                        src: path.resolve('src/icon-192.png'),
-                        size: '192x192'
-                    },
-                    {
-                        src: path.resolve('src/icon-384.png'),
-                        size: '384x384'
-                    },
-                    {
-                        src: path.resolve('src/icon-512.png'),
-                        size: '512x512'
-                    },
-                    ]
-        }), */
         new CleanWebpackPlugin(),
     ],
 };

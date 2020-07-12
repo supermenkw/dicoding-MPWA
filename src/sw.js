@@ -1,62 +1,44 @@
-const {
-    assets
-} = global.serviceWorkerOption
-const CACHE_NAME = "gilabola-v1";
+import { precacheAndRoute } from "workbox-precaching/precacheAndRoute.mjs";
+import { registerRoute } from "workbox-routing/registerRoute.mjs";
+import { NetworkFirst } from "workbox-strategies/NetworkFirst.mjs";
+import { StaleWhileRevalidate } from "workbox-strategies/StaleWhileRevalidate.mjs";
+/* importScripts("workbox-sw.js"); */
 
-let urlsToCache = [...assets, './']
+/* workbox.routing.registerRoute(
+    /^https:\/\/api\.football\-data\.org\/v2\//,
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: "api-response",
+    })
+); */
 
-urlsToCache = urlsToCache.map(path => {
-    return new URL(path, global.location).toString()
-})
+registerRoute(
+    /^https:\/\/api\.football\-data\.org\/v2\//,
+    new StaleWhileRevalidate({
+        cacheName: "api-response"
+    })
+);
 
-self.addEventListener("install", function (event) {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then(function (cache) {
-            return cache.addAll(urlsToCache);
-        }),
-    );
-});
+precacheAndRoute(self.__WB_MANIFEST);
 
-self.addEventListener("fetch", function (event) {
-    const base_url = "https://api.football-data.org/v2/";
+/* precacheAndRoute([
+    {url: "/icon/icon-72" , revision: 1},
+    {url: "/icon/icon-96" , revision: 1},
+    {url: "/icon/icon-128" , revision: 1},
+    {url: "/icon/icon-144" , revision: 1},
+    {url: "/icon/icon-152" , revision: 1},
+    {url: "/icon/icon-192" , revision: 1},
+    {url: "/icon/icon-384" , revision: 1},
+    {url: "/icon/icon-512" , revision: 1},
+    {url: "/svg/back.svg" , revision: 1},
+    {url: "/svg/no-emblem.svg" , revision: 1},
+    {url: "/svg/person.svg" , revision: 1},
+    {url: "/svg/rsz_logo.svg" , revision: 1},
+    {url: "/svg/favorite.svg" , revision: 1},
+    {url: "/svg/unfavorite.svg" , revision: 1},
+    {url: "/favicon.ico" , revision: 1},
+    {url: "/manifest.json" , revision: 1},
 
-    if (event.request.url.indexOf(base_url) > -1) {
-        event.respondWith(
-            caches.open(CACHE_NAME).then(function (cache) {
-                return fetch(event.request).then(function (response) {
-                    cache.put(event.request.url, response.clone());
-                    return response;
-                });
-            }),
-        );
-    } else {
-        event.respondWith(
-            caches.match(event.request, {
-                ignoreSearch: true
-            })
-            .then(function (response) {
-                return response || fetch(event.request);
-            }),
-        );
-    }
-});
-
-self.addEventListener("activate", function (event) {
-    event.waitUntil(
-        caches.keys().then(function (cacheNames) {
-            return Promise.all(
-                cacheNames.map(function (cacheName) {
-                    if (cacheName != CACHE_NAME) {
-                        console.log(
-                            "ServiceWorker: cache " + cacheName + " dihapus",
-                        );
-                        return caches.delete(cacheName);
-                    }
-                }),
-            );
-        }),
-    );
-});
+]); */
 
 self.addEventListener("notificationclick", (event) => {
 

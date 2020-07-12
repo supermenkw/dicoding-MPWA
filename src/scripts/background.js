@@ -1,15 +1,7 @@
-import runtime from 'serviceworker-webpack-plugin/lib/runtime';
-
 if ("serviceWorker" in navigator) {
-    const regis = runtime.register();
-    regis.then(() => {
-        console.log("Pendaftaran Service Worker Berhasil!");
-
-    }).catch(() => {
-        console.log("Pendaftaran Service Worker Gagal!");
-
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js");
     });
-
 } else {
     console.log("ServiceWorker belum didukung browser ini.");
 }
