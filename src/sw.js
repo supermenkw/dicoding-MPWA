@@ -1,4 +1,4 @@
-import "regenerator-runtime";
+import "regenerator-runtime/runtime";
 import { precacheAndRoute } from "workbox-precaching/precacheAndRoute.mjs";
 import { registerRoute } from "workbox-routing/registerRoute.mjs";
 import { StaleWhileRevalidate } from "workbox-strategies/StaleWhileRevalidate.mjs";
@@ -13,7 +13,7 @@ registerRoute(
     })
 );
 
-precacheAndRoute(self.__WB_MANIFEST || []);
+precacheAndRoute(self.__WB_MANIFEST);
 
 // Notification Section
 self.addEventListener("notificationclick", (event) => {
