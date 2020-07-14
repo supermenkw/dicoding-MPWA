@@ -40,14 +40,11 @@ const getCompetitions = () => {
             .match(`${base_url}competitions?plan=TIER_ONE`)
             .then((response) => {
                 if (response) {
-                    response.json().then((data) => {
-                        competitionResponse(data);
-                    });
+                    response.json()
                 }
             });
     } else {
         console.log("tidak ada cache");
-
     }
 
     fetchData(`${base_url}competitions?plan=TIER_ONE`)
@@ -55,8 +52,7 @@ const getCompetitions = () => {
         .then(json)
         .then((data) => {
             competitionResponse(data);
-        })
-        .catch(error);
+        });
 };
 
 const getCompetitionById = () => {
@@ -79,8 +75,8 @@ const getCompetitionById = () => {
             .then(status)
             .then(json)
             .then((data) => {
-                competitionByIdResponse(data)
-            })
+                competitionByIdResponse(data);
+            });
     })
 }
 
@@ -95,37 +91,27 @@ const getTeamById = () => {
                 .then((response) => {
                     if (response) {
                         response.json().then((data) => {
-                            teamByIdResponse(data)
+                            teamByIdResponse(data);
                             resolve(data);
                         }).then(() => {
                             const list = document.querySelectorAll(".collapsible");
-
                             M.Collapsible.init(list);
-
-                        }).catch(() => {
-                            console.log("Tidak ada akses internet.");
-
-                        });;
+                        });
                     }
                 })
         }
+
 
         fetchData(`${base_url}teams/${idParam}`)
             .then(status)
             .then(json)
             .then((data) => {
-                teamByIdResponse(data)
+                teamByIdResponse(data);
                 resolve(data);
             }).then(() => {
                 const list = document.querySelectorAll(".collapsible");
                 M.Collapsible.init(list);
-            }).catch(() => {
-                console.log("Tidak ada akses internet.");
-
             });
-
-
-
     });
 }
 

@@ -96,20 +96,11 @@ module.exports = {
                 {
                     from: "src/manifest.json",
                     to: "manifest.json"
-                },
-/*                 {
-                    from: "src/workbox-sw.js",
-                    to: "workbox-sw.js"
-                },
-                {
-                    from: "src/sw.js",
-                    to: "sw.js"
-                } */
+                }
             ]
         }),
         new InjectManifest({
-            swSrc: "./src/sw.js",
-            swDest: "sw.js"
+            swSrc: "./src/sw.js"
         }),
         new CleanWebpackPlugin(),
     ],

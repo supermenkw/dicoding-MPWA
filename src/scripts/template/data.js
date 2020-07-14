@@ -40,7 +40,7 @@ const standingData = (team) => {
 }
 
 const emblemData = (data) => {
-    return `<img class="item-center responsive-img" src="${toHttps(data.crestUrl)}" alt="emblem club ${data.name}">`;
+    return `<img class="item-center responsive-img" src="${toHttps(data.crestUrl)}" alt="emblem club ${data.name}" style="max-width: 300px;">`;
 }
 
 const squadData = (player) => {

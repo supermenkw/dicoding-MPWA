@@ -1,6 +1,9 @@
+import { Workbox } from "workbox-window/Workbox.mjs";
+
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
-        navigator.serviceWorker.register("sw.js");
+        const wb = new Workbox("/sw.js");
+        wb.register();
     });
 } else {
     console.log("ServiceWorker belum didukung browser ini.");
@@ -36,22 +39,24 @@ function requestPermission() {
             console.error("Pengguna menutup kotak dialog permintaan ijin.");
             return;
         } else {
-            if (('PushManager' in window)) {
-                navigator.serviceWorker.getRegistration().then(function (registration) {
-                    registration.pushManager.subscribe({
-                        userVisibleOnly: true,
-                        applicationServerKey: urlBase64ToUint8Array("BD409tEyrVmh3p8YWYVqX1QyPU0FZL4_lL5U24sk3tmdDGJe6gDyQGPki0q8W7Eu4TStuCSyxa7qNDVCpg8Ct_I"),
-                    }).then(function (subscribe) {
-                        console.log('Berhasil melakukan subscribe dengan endpoint: ', subscribe.endpoint);
-                        console.log('Berhasil melakukan subscribe dengan p256dh key: ', btoa(String.fromCharCode.apply(
-                            null, new Uint8Array(subscribe.getKey('p256dh')))));
-                        console.log('Berhasil melakukan subscribe dengan auth key: ', btoa(String.fromCharCode.apply(
-                            null, new Uint8Array(subscribe.getKey('auth')))));
-                    }).catch(function (e) {
-                        console.error('Tidak dapat melakukan subscribe ', e.message);
+            navigator.serviceWorker.ready.then(() => {
+                if (('PushManager' in window)) {
+                    navigator.serviceWorker.getRegistration().then(function (registration) {
+                        registration.pushManager.subscribe({
+                            userVisibleOnly: true,
+                            applicationServerKey: urlBase64ToUint8Array("BD409tEyrVmh3p8YWYVqX1QyPU0FZL4_lL5U24sk3tmdDGJe6gDyQGPki0q8W7Eu4TStuCSyxa7qNDVCpg8Ct_I"),
+                        }).then(function (subscribe) {
+                            console.log('Berhasil melakukan subscribe dengan endpoint: ', subscribe.endpoint);
+                            console.log('Berhasil melakukan subscribe dengan p256dh key: ', btoa(String.fromCharCode.apply(
+                                null, new Uint8Array(subscribe.getKey('p256dh')))));
+                            console.log('Berhasil melakukan subscribe dengan auth key: ', btoa(String.fromCharCode.apply(
+                                null, new Uint8Array(subscribe.getKey('auth')))));
+                        }).catch(function (e) {
+                            console.error('Tidak dapat melakukan subscribe ', e.message);
+                        });
                     });
-                });
-            }
+                }
+            });
         }
     });
 }
