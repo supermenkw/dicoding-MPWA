@@ -43,3 +43,7 @@
 .tabs .indicator {
   background-color:#000;
 } /*Color of underline*/
+
+.center-horizon-vertical {
+  margin: 30vh 0 0 45%;
+}

@@ -13,7 +13,9 @@ registerRoute(
     })
 );
 
-precacheAndRoute(self.__WB_MANIFEST);
+precacheAndRoute(self.__WB_MANIFEST, {
+    ignoreURLParametersMatching: [/.*/],
+});
 
 // Notification Section
 self.addEventListener("notificationclick", (event) => {
