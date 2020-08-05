@@ -15,7 +15,7 @@ module.exports = {
         filename: "[name].bundle.js",
     },
     devServer: {
-        writeToDisk: true,
+        contentBase: path.resolve(__dirname, 'dist'),
     },
     module: {
         rules: [
